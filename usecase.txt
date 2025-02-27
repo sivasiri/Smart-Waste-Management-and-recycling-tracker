@@ -1,0 +1,7 @@
+Title: Automated Waste Sorting for Waste Management Operators.
+User Story:
+ As a waste management operator, I want an AI tool that can help me automate waste sorting in the facility, so I can increase the efficiency and accuracy of the sorting process.
+Acceptance Criteria: 
+•	The AI system should be able to categorize large amounts of waste materials quickly and accurately.
+•	It should integrate with the existing waste management system to assist with operational workflow.
+
