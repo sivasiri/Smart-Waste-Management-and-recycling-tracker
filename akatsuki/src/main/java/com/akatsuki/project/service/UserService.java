@@ -1,5 +1,6 @@
 package com.akatsuki.project.service;
 
+import com.akatsuki.project.dto.UserUpdateRequest;
 import com.akatsuki.project.model.User;
 import com.akatsuki.project.repository.UserRepository;
 import com.akatsuki.project.util.JwtUtil;
@@ -46,6 +47,37 @@ public class UserService {
         String token = jwtUtil.generateToken(email);
         return "Login successful! Token: " + token;
     }
+    
+    public String updateUserProfile(String email, UserUpdateRequest updateRequest) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return "User not found!";
+        }
+
+        user.setFirstName(updateRequest.getFirstName());
+        user.setLastName(updateRequest.getLastName());
+        user.setPhone(updateRequest.getPhone());
+        user.setAddress(updateRequest.getAddress());
+        user.setAge(updateRequest.getAge());
+        user.setSex(updateRequest.getSex());
+        user.setProfilePicture(updateRequest.getProfilePicture());
+
+
+        userRepository.save(user);
+        return "Profile updated successfully!";
+    }
+
+    
+    public void updateProfilePicture(String email, byte[] profilePicBytes) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setProfilePicture(profilePicBytes);
+            userRepository.save(user);
+        }
+    }
+
+
+
     
 
 }

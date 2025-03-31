@@ -2,7 +2,10 @@ package com.akatsuki.project.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -41,4 +44,12 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+    public String extractTokenFromRequest(HttpServletRequest request) {
+        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        return null;
+    }
+
 }

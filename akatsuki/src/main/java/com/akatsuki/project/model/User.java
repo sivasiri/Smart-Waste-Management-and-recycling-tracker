@@ -21,6 +21,8 @@ public class User {
     private int age;
     private String sex;
 
+    private byte[] profilePicture; // Store picture as byte[] in MongoDB
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -30,7 +32,7 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String password,
-                String phone, String address, int age, String sex) {
+                String phone, String address, int age, String sex, byte[] profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,47 +41,41 @@ public class User {
         this.address = address;
         this.age = age;
         this.sex = sex;
+        this.profilePicture = profilePicture;
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters and Setters
     public String getId() { return id; }
-
     public void setId(String id) { this.id = id; }
 
     public String getFirstName() { return firstName; }
-
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public String getLastName() { return lastName; }
-
     public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getEmail() { return email; }
-
     public void setEmail(String email) { this.email = email; }
 
     public String getPassword() { return password; }
-
     public void setPassword(String password) { this.password = password; }
 
     public String getPhone() { return phone; }
-
     public void setPhone(String phone) { this.phone = phone; }
 
     public String getAddress() { return address; }
-
     public void setAddress(String address) { this.address = address; }
 
     public int getAge() { return age; }
-
     public void setAge(int age) { this.age = age; }
 
     public String getSex() { return sex; }
-
     public void setSex(String sex) { this.sex = sex; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public byte[] getProfilePicture() { return profilePicture; }
+    public void setProfilePicture(byte[] profilePicture) { this.profilePicture = profilePicture; }
 
+    public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
