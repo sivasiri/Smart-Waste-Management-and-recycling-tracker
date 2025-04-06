@@ -45,11 +45,12 @@ public class JwtUtil {
                 .getSubject();
     }
     public String extractTokenFromRequest(HttpServletRequest request) {
-        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7);
         }
         return null;
     }
+
 
 }

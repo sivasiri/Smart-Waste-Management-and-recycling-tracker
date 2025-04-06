@@ -5,8 +5,11 @@ import com.akatsuki.project.model.User;
 import com.akatsuki.project.repository.UserRepository;
 import com.akatsuki.project.util.JwtUtil;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
@@ -18,16 +21,34 @@ public class UserService {
     private UserRepository userRepository;
 
     // Register a new user
-    public String registerUser(User user) {
-        // Check if user already exists
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            return "User with this email already exists!";
-        }
+    public String registerUser(String firstName, String lastName, String email, String password, String phone,
+            String address, int age, String sex, MultipartFile profilePicture) {
+if (userRepository.findByEmail(email) != null) {
+return "User already exists!";
+}
 
-        // TODO: Add password encryption here (we'll do this later)
-        userRepository.save(user);
-        return "User registered successfully!";
-    }
+User user = new User();
+user.setFirstName(firstName);
+user.setLastName(lastName);
+user.setEmail(email);
+user.setPassword(password);
+user.setPhone(phone);
+user.setAddress(address);
+user.setAge(age);
+user.setSex(sex);
+
+try {
+if (profilePicture != null && !profilePicture.isEmpty()) {
+user.setProfilePicture(profilePicture.getBytes());
+}
+} catch (IOException e) {
+return "Failed to read profile picture.";
+}
+
+userRepository.save(user);
+return "User registration successful!";
+}
+
 
     // Find user by email (used in login, etc.)
     public User getUserByEmail(String email) {
@@ -75,6 +96,15 @@ public class UserService {
             userRepository.save(user);
         }
     }
+    
+    public String loginUserAndGenerateToken(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return jwtUtil.generateToken(email);
+        }
+        return null;
+    }
+
 
 
 

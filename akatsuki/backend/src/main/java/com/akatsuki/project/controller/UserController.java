@@ -1,6 +1,7 @@
 package com.akatsuki.project.controller;
 
 import com.akatsuki.project.model.User;
+import com.akatsuki.project.service.BarcodeService;
 import com.akatsuki.project.service.UserService;
 import com.akatsuki.project.util.JwtUtil;
 
@@ -10,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.akatsuki.project.dto.BarcodeProductResponse;
 import com.akatsuki.project.dto.LoginRequest;
 import com.akatsuki.project.dto.UserUpdateRequest;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,34 +33,57 @@ public class UserController {
 
     // POST: Register a new user
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        String result = userService.registerUser(user);
+    public ResponseEntity<String> registerUser(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("phone") String phone,
+            @RequestParam("address") String address,
+            @RequestParam("age") int age,
+            @RequestParam("sex") String sex,
+            @RequestParam(value = "profilePicture", required = false) MultipartFile profilePicture
+    ) {
+        String result = userService.registerUser(firstName, lastName, email, password, phone, address, age, sex, profilePicture);
         if (result.contains("exists")) {
             return ResponseEntity.badRequest().body(result);
         }
         return ResponseEntity.ok(result);
     }
+
     
     @GetMapping("/api/test/secure")
     public ResponseEntity<String> securedEndpoint() {
         return ResponseEntity.ok("You have accessed a secure endpoint!");
     }
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "👋 Hello! You're authenticated!";
+    
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/dashboard")
+    public ResponseEntity<String> getDashboardGreeting(HttpServletRequest request) {
+        String token = jwtUtil.extractTokenFromRequest(request);
+        String email = jwtUtil.extractEmail(token);
+        User user = userService.getUserByEmail(email);
+
+        String name = user.getFirstName();
+        return ResponseEntity.ok("👋 Welcome, " + name + "! Here's your Smart Waste Dashboard.");
     }
+
 
     
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
-        String response = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
-        
-        if (response.contains("successful")) {
-            return ResponseEntity.ok(response);
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        String token = userService.loginUserAndGenerateToken(loginRequest.getEmail(), loginRequest.getPassword());
+
+        if (token == null) {
+            return ResponseEntity.status(401).body("Invalid credentials");
         }
-        return ResponseEntity.status(401).body(response);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        return ResponseEntity.ok(response);
     }
+
     
     @GetMapping("/me")
     public ResponseEntity<?> getLoggedInUserProfile(HttpServletRequest request) {
@@ -124,6 +152,27 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");
         }
     }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RestController
+    @RequestMapping("/api/classify")
+    public class BarcodeController {
+
+        @Autowired
+        private BarcodeService barcodeService;
+
+        @GetMapping("/barcode/{barcode}")
+        public ResponseEntity<?> classifyUsingBarcode(@PathVariable String barcode) {
+            BarcodeProductResponse result = barcodeService.classifyByBarcode(barcode);
+
+            if (result == null) {
+                return ResponseEntity.status(404).body("Barcode not found. Try manual entry.");
+            }
+
+            return ResponseEntity.ok(result);
+        }
+    }
+
 
 
 
