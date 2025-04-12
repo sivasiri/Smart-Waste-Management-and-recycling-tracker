@@ -7,6 +7,13 @@ public class BarcodeProductResponse {
     private String packaging;
     private String category;
     private String classification;
+    
+    public BarcodeProductResponse(String classification) {
+        this.classification = classification;
+    }
+	public BarcodeProductResponse() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getBarcode() {
 		return barcode;
 	}

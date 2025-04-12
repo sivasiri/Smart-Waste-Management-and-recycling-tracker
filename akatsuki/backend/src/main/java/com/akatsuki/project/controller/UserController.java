@@ -1,6 +1,8 @@
 package com.akatsuki.project.controller;
 
+import com.akatsuki.project.model.RecycledItem;
 import com.akatsuki.project.model.User;
+import com.akatsuki.project.repository.RecycledItemRepository;
 import com.akatsuki.project.service.BarcodeService;
 import com.akatsuki.project.service.UserService;
 import com.akatsuki.project.util.JwtUtil;
@@ -16,10 +18,12 @@ import com.akatsuki.project.dto.BarcodeProductResponse;
 import com.akatsuki.project.dto.LoginRequest;
 import com.akatsuki.project.dto.UserUpdateRequest;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,6 +34,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private RecycledItemRepository recycledItemRepository;
+
 
     // POST: Register a new user
     @PostMapping("/register")
@@ -152,28 +160,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");
         }
     }
+
+       
     
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RestController
-    @RequestMapping("/api/classify")
-    public class BarcodeController {
-
-        @Autowired
-        private BarcodeService barcodeService;
-
-        @GetMapping("/barcode/{barcode}")
-        public ResponseEntity<?> classifyUsingBarcode(@PathVariable String barcode) {
-            BarcodeProductResponse result = barcodeService.classifyByBarcode(barcode);
-
-            if (result == null) {
-                return ResponseEntity.status(404).body("Barcode not found. Try manual entry.");
-            }
-
-            return ResponseEntity.ok(result);
-        }
-    }
-
-
 
 
 }

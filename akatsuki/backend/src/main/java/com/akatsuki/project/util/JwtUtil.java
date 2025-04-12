@@ -51,6 +51,16 @@ public class JwtUtil {
         }
         return null;
     }
+    
+    public boolean validateToken(String token) {
+        try {
+            extractEmail(token); // Will throw an exception if invalid
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 
 }
