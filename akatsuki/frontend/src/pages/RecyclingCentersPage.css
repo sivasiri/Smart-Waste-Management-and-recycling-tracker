@@ -1,0 +1,83 @@
+.locator-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+  
+  .locator-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .locator-controls label {
+    font-size: 14px;
+  }
+  
+  .locator-controls select,
+  .locator-controls input {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .locator-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* map pane */
+  .locator-map {
+    flex: 1 1 400px;
+    height: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* list pane */
+  .locator-list {
+    flex: 1 1 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: left;
+  }
+  
+  .center-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .center-item h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+  }
+  
+  .center-item p {
+    margin: 2px 0;
+    font-size: 14px;
+  }
+  
+  .error-msg {
+    color: #d32f2f;
+    margin-bottom: 20px;
+  }
+  
+  .btn.cancel-btn {
+    margin-top: 20px;
+    background: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  

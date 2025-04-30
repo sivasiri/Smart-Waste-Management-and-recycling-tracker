@@ -1,5 +1,3 @@
-// File: src/pages/Dashboard.js
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,50 +9,55 @@ const Dashboard = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = localStorage.getItem("token");
-
-      // Handle missing or undefined tokens
-      if (!token || token === "undefined") {
-        console.warn("No token found. Redirecting to login...");
-        localStorage.removeItem("token");
-        navigate("/login");
+      const token = localStorage.getItem('token');
+      if (!token || token === 'undefined') {
+        localStorage.removeItem('token');
+        navigate('/login');
         return;
       }
-
       try {
-        const res = await axios.get("http://localhost:8080/api/users/dashboard", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+        await axios.get('http://localhost:8080/api/users/dashboard', {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("✅ Dashboard access granted:", res.data);
       } catch (err) {
-        console.error("❌ Token validation failed or backend unreachable:", err);
-        localStorage.removeItem("token");
-        navigate("/login");
+        localStorage.removeItem('token');
+        navigate('/login');
       }
     };
-
     checkToken();
   }, [navigate]);
 
   return (
     <div className="dashboard-container">
-      {/* Header */}
-      <header className="dashboard-header">
-        <h1>Smart Waste Management and Recycling Tracker</h1>
-        <FaUserCircle className="profile-icon" />
-      </header>
+      {/* Profile-icon only—header is now in Layout */}
+      <div className="dashboard-profile-icon">
+        <FaUserCircle
+          className="profile-icon"
+          onClick={() => navigate('/profile')}
+          title="View Profile"
+        />
+      </div>
 
       {/* Main content */}
       <main className="dashboard-main">
         <h2>Welcome Back! 🌍</h2>
         <p>Explore the features below:</p>
         <ul className="features-list">
-          <li>♻️ AI Waste Categorization</li>
-          <li>🚛 Garbage Collection Alerts</li>
-          <li>📍 Recycling Center Locator</li>
-          <li>🎯 Gamification & Contribution Tracking</li>
+          <li onClick={() => navigate('/classification')} className="clickable">
+            ♻️ AI Waste Categorization
+          </li>
+          <li onClick={() => navigate('/alerts')} className="clickable">
+            🚛 Garbage Collection Alerts
+          </li>
+          <li onClick={() => navigate('/recycling-centers')} className="clickable">
+            📍 Recycling Center Locator
+          </li>
+          <li onClick={() => navigate('/gamification')} className="clickable">
+            🎯 Gamification & Contribution Tracking
+          </li>
+          <li onClick={() => navigate('/history')} className="clickable">
+            📜 View Classification & Entry History
+          </li>
         </ul>
       </main>
 

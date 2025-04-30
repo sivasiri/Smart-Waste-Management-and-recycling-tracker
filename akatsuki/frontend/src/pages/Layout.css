@@ -1,0 +1,33 @@
+.layout-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .home-button {
+    display: inline-block;
+  }
+  
+  .home-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .app-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .app-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .layout-content {
+    padding: 20px;
+  }
+  

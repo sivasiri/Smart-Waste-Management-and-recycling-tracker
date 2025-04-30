@@ -1,0 +1,87 @@
+/* Container for the manual entry page */
+.manual-entry-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+  
+  /* The form wrapper */
+  .manual-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+  }
+  
+  /* Inputs and textarea */
+  .form-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  /* Button row */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Primary button */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  
+  .btn:hover {
+    background: #43a047;
+  }
+  
+  /* Cancel / secondary button */
+  .cancel-btn {
+    background: #ccc;
+    color: #333;
+  }
+  
+  .cancel-btn:hover {
+    background: #b3b3b3;
+  }
+  
+  /* Inline “link” button inside messages */
+  .link-btn {
+    background: none;
+    border: none;
+    color: #4caf50;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+  }
+  
+  /* Feedback / “success” section */
+  .manual-feedback {
+    margin-top: 20px;
+    padding: 20px;
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    color: #2e7d32;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  

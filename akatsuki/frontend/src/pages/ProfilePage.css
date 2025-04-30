@@ -1,0 +1,95 @@
+/* Container for all profile-related pages */
+.profile-container {
+  max-width: 400px;
+  margin: 40px auto;           /* gives some vertical breathing room */
+  text-align: center;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
+}
+
+/* Circular profile image */
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 2px solid #ddd;
+}
+
+/* Wrapper around the picture in view/edit-picture pages */
+.profile-picture-container {
+  margin-bottom: 20px;
+}
+
+/* Button row */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Primary button */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+/* Hover state */
+.btn:hover {
+  background: #43a047;
+}
+
+/* Secondary / cancel button */
+.cancel-btn {
+  background: #ccc;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #b3b3b3;
+}
+
+/* Shared input styling for both text & file inputs */
+.form-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Container for the edit-profile form */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+  text-align: left;
+}
+
+/* Each form field row */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label above inputs */
+.form-label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 14px;
+}

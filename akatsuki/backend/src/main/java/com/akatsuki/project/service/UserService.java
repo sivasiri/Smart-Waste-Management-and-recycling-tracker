@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
-	
-	@Autowired
-	private JwtUtil jwtUtil;
+    
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserRepository userRepository;
@@ -23,32 +23,31 @@ public class UserService {
     // Register a new user
     public String registerUser(String firstName, String lastName, String email, String password, String phone,
             String address, int age, String sex, MultipartFile profilePicture) {
-if (userRepository.findByEmail(email) != null) {
-return "User already exists!";
-}
+        if (userRepository.findByEmail(email) != null) {
+            return "User already exists!";
+        }
 
-User user = new User();
-user.setFirstName(firstName);
-user.setLastName(lastName);
-user.setEmail(email);
-user.setPassword(password);
-user.setPhone(phone);
-user.setAddress(address);
-user.setAge(age);
-user.setSex(sex);
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setAddress(address);
+        user.setAge(age);
+        user.setSex(sex);
 
-try {
-if (profilePicture != null && !profilePicture.isEmpty()) {
-user.setProfilePicture(profilePicture.getBytes());
-}
-} catch (IOException e) {
-return "Failed to read profile picture.";
-}
+        try {
+            if (profilePicture != null && !profilePicture.isEmpty()) {
+                user.setProfilePicture(profilePicture.getBytes());
+            }
+        } catch (IOException e) {
+            return "Failed to read profile picture.";
+        }
 
-userRepository.save(user);
-return "User registration successful!";
-}
-
+        userRepository.save(user);
+        return "User registration successful!";
+    }
 
     // Find user by email (used in login, etc.)
     public User getUserByEmail(String email) {
@@ -69,6 +68,7 @@ return "User registration successful!";
         return "Login successful! Token: " + token;
     }
     
+    // Update only textual profile fields; do NOT overwrite the existing picture
     public String updateUserProfile(String email, UserUpdateRequest updateRequest) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
@@ -81,14 +81,13 @@ return "User registration successful!";
         user.setAddress(updateRequest.getAddress());
         user.setAge(updateRequest.getAge());
         user.setSex(updateRequest.getSex());
-        user.setProfilePicture(updateRequest.getProfilePicture());
-
+        // <— removed: user.setProfilePicture(updateRequest.getProfilePicture());
 
         userRepository.save(user);
         return "Profile updated successfully!";
     }
 
-    
+    // Separate picture-update flow
     public void updateProfilePicture(String email, byte[] profilePicBytes) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
@@ -104,10 +103,4 @@ return "User registration successful!";
         }
         return null;
     }
-
-
-
-
-    
-
 }

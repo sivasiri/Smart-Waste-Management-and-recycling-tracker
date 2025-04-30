@@ -7,7 +7,7 @@ public class UserUpdateRequest {
     private String address;
     private int age;
     private String sex;
-    private byte[] profilePicture;  // ⬅️ Changed from String to byte[]
+    //private byte[] profilePicture;  // ⬅️ Changed from String to byte[]
 
     // Getters & Setters
     public String getFirstName() { return firstName; }
@@ -28,6 +28,6 @@ public class UserUpdateRequest {
     public String getSex() { return sex; }
     public void setSex(String sex) { this.sex = sex; }
 
-    public byte[] getProfilePicture() { return profilePicture; }
-    public void setProfilePicture(byte[] profilePicture) { this.profilePicture = profilePicture; }
+    //public byte[] getProfilePicture() { return profilePicture; }
+    //public void setProfilePicture(byte[] profilePicture) { this.profilePicture = profilePicture; }
 }

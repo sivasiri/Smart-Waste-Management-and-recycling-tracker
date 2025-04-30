@@ -1,48 +1,61 @@
+/* Container now reserves space for the profile icon */
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #ffffff;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .dashboard-header {
-    background-color: #000000;
-    color: #FFD700;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .profile-icon {
-    font-size: 2rem;
-    color: #FFD700;
-    cursor: pointer;
-  }
-  
-  .dashboard-main {
-    flex-grow: 1;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .features-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-  }
-  
-  .features-list li {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-  }
-  
-  .dashboard-footer {
-    background-color: #f2f2f2;
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #444;
-  }
-  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 3rem;         /* leave room at top for icon */
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Profile‐icon wrapper, top-right */
+.dashboard-profile-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* Icon itself */
+.profile-icon {
+  font-size: 2rem;
+  color: #FFD700;
+  cursor: pointer;
+}
+
+/* Main content */
+.dashboard-main {
+  flex-grow: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Feature list */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.features-list li {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* Footer */
+.dashboard-footer {
+  background-color: #f2f2f2;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.features-list li.clickable {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.features-list li.clickable:hover {
+  color: #4caf50;
+}

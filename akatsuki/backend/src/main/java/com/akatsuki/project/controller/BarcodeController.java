@@ -79,18 +79,19 @@ public class BarcodeController {
         return ResponseEntity.ok(result);
     }
 
-	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/api/dashboard/recycled")
-	public ResponseEntity<?> getAllRecycledItems(HttpServletRequest request) {
-	    String token = jwtUtil.extractTokenFromRequest(request);
-	    if (token == null || !jwtUtil.validateToken(token)) {
-	        return ResponseEntity.status(403).body("Invalid or missing token");
-	    }
-	
-	    String email = jwtUtil.extractEmail(token);
-	    List<RecycledItem> items = recycledItemRepository.findByEmail(email);
-	    return ResponseEntity.ok(items);
-	}
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/recycled")
+    public ResponseEntity<?> getScannedHistory(HttpServletRequest request) {
+        String token = jwtUtil.extractTokenFromRequest(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(403).body("Invalid or missing token");
+        }
+
+        String email = jwtUtil.extractEmail(token);
+        List<RecycledItem> items = recycledItemRepository.findByEmail(email);
+        return ResponseEntity.ok(items);
+    }
+
 	
 	@GetMapping("/manual")
 	public ResponseEntity<?> getManualRecycledItems(HttpServletRequest request) {
